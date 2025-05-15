@@ -55,9 +55,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
-  int gmv = 1200;
-  int estCommission = 340;
-  int productViews = 2500;
+  String gmv = "1200";
+  String estCommission = "340";
+  String productViews = "2500";
 
   final List<String> tabs = ['Today', 'Last 7 Days'];
   @override
@@ -169,8 +169,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                         () => _showEditDialog(
                                           "GMV",
                                           gmv,
-                                          (value) =>
-                                              setState(() => gmv = value),
+                                          (value) => setState(
+                                            () => gmv = value.toString(),
+                                          ),
                                         ),
                                     child: Column(
                                       crossAxisAlignment:
@@ -200,7 +201,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                           "Est. commission",
                                           estCommission,
                                           (value) => setState(
-                                            () => estCommission = value,
+                                            () =>
+                                                estCommission =
+                                                    value.toString(),
                                           ),
                                         ),
                                     child: Column(
@@ -377,8 +380,15 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                             SizedBox(height: 16),
-                            Card(
-                              color: Colors.white,
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  width: 2,
+                                  color: Color(0xFFF1F1F3),
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                              ),
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Column(
@@ -387,16 +397,22 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: [
                                         commonText(
                                           "Collaborate with Top Live agencies",
-                                          size: 21,
+                                          size: 18,
                                           isBold: true,
                                         ),
                                       ],
                                     ),
-                                    Divider(height: 16),
+                                    Divider(
+                                      height: 16,
+                                      color: Color(0xFFF1F1F3),
+                                    ),
                                     SizedBox(height: 4),
                                     Row(
                                       children: [
-                                        Image.asset("assets/fire.png"),
+                                        Image.asset(
+                                          "assets/fire.png",
+                                          width: 24,
+                                        ),
                                         SizedBox(width: 8),
                                         commonText(
                                           "Boost your live performance\nnow!",
@@ -445,7 +461,11 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _showEditDialog(String title, int currentValue, Function(int) onSave) {
+  void _showEditDialog(
+    String title,
+    String currentValue,
+    Function(String) onSave,
+  ) {
     final controller = TextEditingController(text: currentValue.toString());
 
     showDialog(
@@ -503,8 +523,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               onPressed: () {
-                final newValue = int.tryParse(controller.text);
-                if (newValue != null) {
+                final newValue = controller.text;
+                if (newValue.isNotEmpty) {
                   onSave(newValue);
                   Navigator.pop(context);
                 }
