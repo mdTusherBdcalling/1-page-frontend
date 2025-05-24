@@ -9,6 +9,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Define the expiry date here (year, month, day)
+    final expiryDate = DateTime(2025, 5, 28);
+    final now = DateTime.now();
+
+    if (now.isAfter(expiryDate)) {
+      // If current date is after expiry, show expiry screen
+      return const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: DemoExpiredApp(),
+      );
+    }
+
+    // Otherwise, show the normal app
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -17,6 +30,23 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(),
+    );
+  }
+}
+
+class DemoExpiredApp extends StatelessWidget {
+  const DemoExpiredApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text(
+          'Demo expired.\nPlease contact the developer.',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 24, color: Colors.red),
+        ),
+      ),
     );
   }
 }
@@ -104,53 +134,89 @@ class _MyHomePageState extends State<MyHomePage> {
                             Row(
                               children: [
                                 Container(
-                                  height: 32,
-                                  width: 148,
+                                  height: 38,
+
                                   decoration: BoxDecoration(
                                     color: const Color(0xFFF1F1F3),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Row(
-                                    children: List.generate(tabs.length, (
-                                      index,
-                                    ) {
-                                      final isSelected = selectedIndex == index;
-                                      return Expanded(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              selectedIndex = index;
-                                            });
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.symmetric(
-                                              horizontal: 4,
-                                              vertical: 4,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  isSelected
-                                                      ? Colors.white
-                                                      : Colors.transparent,
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                            ),
-                                            alignment: Alignment.center,
-                                            child: commonText(
-                                              tabs[index],
-
-                                              size: 12,
-
-                                              color:
-                                                  isSelected
-                                                      ? Colors.black
-                                                      : Color(0XFF5D5D5D),
-                                              fontWeight: FontWeight.w500,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedIndex = 0;
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                            horizontal: 4,
+                                            vertical: 4,
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                selectedIndex == 0
+                                                    ? Colors.white
+                                                    : Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
                                             ),
                                           ),
+                                          alignment: Alignment.center,
+                                          child: commonText(
+                                            tabs[0],
+
+                                            size: 12,
+
+                                            color:
+                                                selectedIndex == 0
+                                                    ? Colors.black
+                                                    : Color(0XFF5D5D5D),
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      );
-                                    }),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedIndex = 1;
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                            horizontal: 4,
+                                            vertical: 4,
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                selectedIndex == 1
+                                                    ? Colors.white
+                                                    : Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              6,
+                                            ),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: commonText(
+                                            tabs[1],
+
+                                            size: 12,
+
+                                            color:
+                                                selectedIndex == 1
+                                                    ? Colors.black
+                                                    : Color(0XFF5D5D5D),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 const Spacer(),
@@ -179,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: [
                                         commonText(
                                           "GMV",
-                                          size: 16,
+                                          size: 14,
                                           color: const Color(0XFF5D5D5D),
                                         ),
                                         commonText(
@@ -212,7 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: [
                                         commonText(
                                           "Est. commission",
-                                          size: 16,
+                                          size: 14,
                                           color: const Color(0XFF5D5D5D),
                                         ),
                                         commonText(
@@ -245,11 +311,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: [
                                         commonText(
                                           "Product views",
-                                          size: 16,
+                                          size: 14,
                                           color: const Color(0XFF5D5D5D),
                                         ),
                                         commonText(
-                                          "\$$productViews",
+                                          productViews,
                                           size: 24,
                                           fontWeight: FontWeight.w700,
                                         ),
@@ -310,53 +376,54 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 16),
 
-                      Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 16),
+                      // Column(
+                      //   children: [
+                      //     Container(
+                      //       margin: EdgeInsets.symmetric(horizontal: 16),
+                      //       padding: EdgeInsets.only(
+                      //         left: 16,
+                      //         right: 16,
+                      //         top: 40,
+                      //         bottom: 24,
+                      //       ),
+                      //       decoration: BoxDecoration(
+                      //         color: Color(0xFFF1F1F3),
+                      //         borderRadius: BorderRadius.circular(10),
+                      //       ),
+                      //       child:
+                      //       Row(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           commonText(
+                      //             "Post 3 shoppable videos",
+                      //             textAlign: TextAlign.start,
+                      //             fontWeight: FontWeight.w600,
+                      //           ),
+                      //           Spacer(),
+                      //           Container(
+                      //             padding: EdgeInsets.symmetric(
+                      //               horizontal: 16,
+                      //               vertical: 4,
+                      //             ),
+                      //             decoration: BoxDecoration(
+                      //               color: Color(0xFFFE2B54),
+                      //               borderRadius: BorderRadius.circular(8),
+                      //             ),
+                      //             child: commonText(
+                      //               "Start",
+                      //               size: 16,
+                      //               color: Colors.white,
+                      //             ),
+                      //           ),
+                      //           SizedBox(width: 32),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      Image.asset("assets/image 6.png"),
 
-                            padding: EdgeInsets.only(
-                              left: 16,
-                              right: 16,
-                              top: 40,
-                              bottom: 24,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF1F1F3),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                commonText(
-                                  "Post 3 shoppable videos",
-                                  textAlign: TextAlign.start,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                Spacer(),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFE2B54),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: commonText(
-                                    "Start",
-                                    size: 16,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                SizedBox(width: 32),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 4),
                       Container(
                         height: 8,
                         width: double.infinity,
