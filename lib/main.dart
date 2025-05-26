@@ -522,7 +522,35 @@ class _MyHomePageState extends State<MyHomePage> {
               Image.asset("assets/bottombar.png"),
             ],
           ),
-          Positioned(bottom: 65, child: Image.asset("assets/button.png")),
+          // Positioned(bottom: 65, child: Image.asset("assets/button.png")),
+          Positioned(
+            bottom: 80,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: Row(
+                children: [
+                  Image.asset("assets/facetime-button.png", width: 20),
+                  commonText(
+                    "  Create Now",
+                    fontWeight: FontWeight.w500,
+                    size: 16,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
