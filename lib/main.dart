@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Define the expiry date here (year, month, day)
-    final expiryDate = DateTime(2025, 6, 5);
+    final expiryDate = DateTime(2025, 6, 6);
     final now = DateTime.now();
 
     if (now.isAfter(expiryDate)) {
