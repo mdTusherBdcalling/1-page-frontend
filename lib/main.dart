@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Define the expiry date here (year, month, day)
-    final expiryDate = DateTime(2025, 5, 31);
+    final expiryDate = DateTime(2025, 6, 5);
     final now = DateTime.now();
 
     if (now.isAfter(expiryDate)) {
@@ -88,6 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String gmv = "1200";
   String estCommission = "340";
   String productViews = "2500";
+  bool isSilver = true;
+  String name = "Hey, Tracy!";
 
   final List<String> tabs = ['Today', 'Last 7 Days'];
   @override
@@ -122,15 +124,48 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            commonText(
-                              "Hey, Tracy!",
-                              size: 34,
-                              fontWeight: FontWeight.w700,
+                            InkWell(
+                              onTap:
+                                  () => _showEditDialog(
+                                    "Name",
+                                    name,
+                                    (value) =>
+                                        setState(() => name = value.toString()),
+                                  ),
+                              child: commonText(
+                                name,
+                                size: 34,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
+                            SizedBox(height: 8),
+                            (isSilver)
+                                ? InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      isSilver = !isSilver;
+                                    });
+                                  },
+                                  child: Image.asset(
+                                    "assets/image 5.png",
 
-                            Image.asset("assets/image 5.png"),
+                                    width: 230,
+                                  ),
+                                )
+                                : InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      isSilver = !isSilver;
+                                    });
+                                  },
+                                  child: Image.asset(
+                                    "assets/image 9.png",
+                                    width: 230,
+                                  ),
+                                ),
 
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 20),
+
                             Row(
                               children: [
                                 Container(
@@ -514,6 +549,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                       ),
+
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Image.asset("assets/image 10.png"),
+                      ),
                     ],
                   ),
                 ),
@@ -526,7 +566,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Positioned(
             bottom: 80,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 14),
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -545,7 +585,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   commonText(
                     "  Create Now",
                     fontWeight: FontWeight.w500,
-                    size: 16,
+                    size: 14,
                   ),
                 ],
               ),
@@ -580,7 +620,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           content: TextField(
             controller: controller,
-            keyboardType: TextInputType.number,
+
             decoration: InputDecoration(
               filled: true,
               fillColor: const Color(0xFFF5F5F5),
