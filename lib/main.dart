@@ -146,10 +146,25 @@ class _MyHomePageState extends State<MyHomePage> {
                                       isSilver = !isSilver;
                                     });
                                   },
-                                  child: Image.asset(
-                                    "assets/image 5.png",
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        "assets/image 5.png",
 
-                                    width: 230,
+                                        width: 140,
+                                      ),
+                                      commonText(
+                                        "  4 benefits",
+
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      SizedBox(width: 4),
+                                      Icon(
+                                        Icons.arrow_forward_ios_outlined,
+                                        size: 12,
+                                        color: Colors.black38,
+                                      ),
+                                    ],
                                   ),
                                 )
                                 : InkWell(
@@ -158,9 +173,23 @@ class _MyHomePageState extends State<MyHomePage> {
                                       isSilver = !isSilver;
                                     });
                                   },
-                                  child: Image.asset(
-                                    "assets/image 9.png",
-                                    width: 230,
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        "assets/image 9.png",
+                                        width: 140,
+                                      ),
+                                      commonText(
+                                        "  11 benefits",
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      SizedBox(width: 4),
+                                      Icon(
+                                        Icons.arrow_forward_ios_outlined,
+                                        size: 12,
+                                        color: Colors.black38,
+                                      ),
+                                    ],
                                   ),
                                 ),
 
