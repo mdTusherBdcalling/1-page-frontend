@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -92,6 +95,20 @@ class _MyHomePageState extends State<MyHomePage> {
   String name = "Hey, Tracy!";
 
   final List<String> tabs = ['Today', 'Last 7 Days'];
+
+  File? _imageFile;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,6 +124,18 @@ class _MyHomePageState extends State<MyHomePage> {
             Image.asset("assets/close.png"),
             Spacer(),
             Image.asset("assets/actions.png"),
+            SizedBox(width: 8),
+            InkWell(
+              onTap: _pickImage,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 12,
+                backgroundImage:
+                    (_imageFile != null)
+                        ? FileImage(_imageFile!)
+                        : AssetImage("assets/Ellipse 1.png"),
+              ),
+            ),
           ],
         ),
       ),
