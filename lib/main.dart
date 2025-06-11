@@ -13,16 +13,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Define the expiry date here (year, month, day)
-    final expiryDate = DateTime(2025, 6, 6);
-    final now = DateTime.now();
+    // final expiryDate = DateTime(2025, 6, 6);
+    // final now = DateTime.now();
 
-    if (now.isAfter(expiryDate)) {
-      // If current date is after expiry, show expiry screen
-      return const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: DemoExpiredApp(),
-      );
-    }
+    // if (now.isAfter(expiryDate)) {
+    //   // If current date is after expiry, show expiry screen
+    //   return const MaterialApp(
+    //     debugShowCheckedModeBanner: false,
+    //     home: DemoExpiredApp(),
+    //   );
+    // }
 
     // Otherwise, show the normal app
     return MaterialApp(
